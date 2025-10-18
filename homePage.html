@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CURA - Smart Healthcare AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+      body {
+          font-family: 'Tajawal', sans-serif;
+          color: white;
+          background: linear-gradient(180deg, #005f66 , #151A25);
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          align-items: center;
+          text-align: center;
+          overflow-x: hidden;
+          padding: 20px;
+      }
+
+    header {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      padding: 20px 40px;
+    }
+
+    header img {
+      width: 80px;
+    }
+
+      h1 {
+          margin-top: 0px;
+          font-family: 'Syncopate';
+          font-size: 150px;
+          font: bold;
+          font-weight: 700;
+          color: #F0F1C5;
+          letter-spacing: 2px;
+          animation: fadeIn 1s ease forwards;
+          text-shadow: 0px 7px 10px #5B2739;
+      }
+
+    #container {
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      max-width: 900px;
+      width: 100%;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .top{
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .left {
+      flex: 1 1 300px;
+      padding: 20px;
+    }
+
+    .left h2 {
+      font-size: 40px;
+      font-weight: 500;
+      color: #fff;
+    }
+
+      .left h2 span {
+          font: bold;
+          background-color: #F0F1C5;
+          color: #433B37;
+          padding: 4px 10px;
+          border-radius: 4px;
+          font-weight: 700;
+      }
+
+    .right {
+      flex: 1 1 300px;
+      margin-top:4%;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      border-right:none;
+      padding: 30px;
+      border-radius: 8px;
+      font-size: 22px;
+      line-height: 1.8;
+      color: #d5d5d5;
+    }
+
+    .choose {
+      margin: 40px 0 20px;
+      font-size: 18px;
+      color: #dcdcdc;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 15px 40px;
+      margin-bottom:6%;
+      font-size: 18px;
+      font-weight: 600;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+      .btn-patient {
+          background-color: #5B2739;
+          color: #F0F1C5;
+      }
+
+      .btn-hospital {
+          background-color: #F0F1C5;
+          color: #0c091e;
+      }
+
+    .btn:hover {
+      transform: translateY(-9px);
+    }
+
+    footer {
+      font-size: 14px;
+      color: #aaa;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+    }
+
+   
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 70px; }
+    
+      .top { flex-direction: column; text-align: center; }
+      .right {
+       
+          font-size: 30px ;
+       
+          border: 1px solid rgba(255, 255, 255, 0.4);
+          border-top: 1px solid rgba(255, 255, 255, 0.2);
+          border-right: none;
+          padding: 15px;
+          padding-bottom: 1px;
+          border-radius: 8px;
+        
+        
+          color: #d5d5d5;
+      }
+      .left { font-size:100%}
+      .left span { font-size:70%}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <img src="logo.png" alt="CURA logo">
+  </header>
+
+  <div id="container">
+    <h1>CURA</h1>
+
+    <div class="top">
+      <div class="left">
+        <h2><span style="font: bold; color:#F0F1C5 ;font-size:larger ; background:none">Welcome</span> to the <span >future</span> of smart healthcare</h2>
+      </div>
+      <div class="right">
+        discover how our AI system predicts hospital crowding, reduces waiting times,
+        and helps hospitals work more efficiently.
+      </div>
+    </div>
+
+    
+
+    <div class="choose">
+      Making Hospitals Smarter with AI - Choose your role to continue.
+    </div>
+
+    <div class="buttons">
+      <button class="btn btn-patient" id="patientBtn">Continue as Patient</button>
+      <button class="btn btn-hospital" id="hospitalBtn">Continue as Hospital</button>
+    </div>
+  </div>
+
+  <footer>
+      Developed by Team 0xC0DE � 2025 All Rights Reserved
+
+  </footer>
+
+  <script>
+    // JS interactivity
+    document.getElementById("patientBtn").addEventListener("click", () => {
+      alert("Redirecting to Patient section...");
+      // window.location.href = "patient.html";
+    });
+
+    document.getElementById("hospitalBtn").addEventListener("click", () => {
+      alert("Redirecting to Hospital section...");
+      // window.location.href = "hospital.html";
+    });
+  </script>
+</body>
+</html>

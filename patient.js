@@ -1,107 +1,155 @@
-// مثال لقيمة قادمة من الموديل أو الـ backend
-let crowdLevel = "high";
+// --- CONFIGURATION ---
+const API_URL = "http://127.0.0.1:5000/predict";
 
-// نحط القيمة داخل العنصر
-const statusEl = document.getElementById("todayStatus");
-statusEl.textContent = crowdLevel;
-
-// (اختياري) نضيف له كلاس لتغيير اللون حسب المستوى
-statusEl.className = crowdLevel.toLowerCase();
-
-
-
-const times = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM"];
-const departments = ["cardiology", "pediatrics", "neurology"];
-
-// Function to get next 3 days
-function getNext3Days() {
-    const dates = [];
-    const today = new Date();
-    for (let i = 0; i < 3; i++) {
-        const d = new Date(today);
-        d.setDate(today.getDate() + i);
-        const formatted = d.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short' });
-        dates.push(formatted);
-    }
-    return dates;
-}
-
-// Example booking data per department
-const bookingsData = {
-    cardiology: {},
-    pediatrics: {},
-    neurology: {}
+// Constants for features that don't change
+const CONSTANTS = {
+    Staff_Count: 10,
+    Average_Wait_Time: 17,
+    Emergency_Load: "Yes", // "Yes"/"No"
 };
 
-const levels = ["High", "Medium", "Low"];
-const dates = getNext3Days();
+// --- UTILITY FUNCTIONS ---
+function getDayNames() {
+    const today = new Date();
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return [
+        days[today.getDay()],
+        days[(today.getDay() + 1) % 7],
+        days[(today.getDay() + 2) % 7]
+    ];
+}
 
-// Fill example data randomly
-departments.forEach(dep => {
-    bookingsData[dep] = {};
-    dates.forEach(date => {
-        bookingsData[dep][date] = times.map(() => {
-            const level = levels[Math.floor(Math.random() * levels.length)];
-            return { level }; // يمكن إضافة patient name لاحقًا
+function formatHour(hour) {
+    const time = new Date();
+    time.setHours(hour, 0, 0, 0);
+    return time.toLocaleTimeString('en-US', { hour: 'numeric', hour12: true });
+}
+
+
+// --- API CALL LOGIC ---
+async function predictSingleHour(dayOffset, hour, department) {
+    const requestData = {
+        Day_of_Week: getDayNames()[dayOffset],
+        Hour: hour,
+        Department: department,
+        Staff_Count: CONSTANTS.Staff_Count,
+        Average_Wait_Time: CONSTANTS.Average_Wait_Time,
+        Emergency_Load: CONSTANTS.Emergency_Load
+    };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestData)
         });
-    });
-});
+        const result = await response.json();
+        return { day: dayOffset, hour, level: result.classification_prediction };
+    } catch (err) {
+        console.error(`Error fetching prediction for ${department} at hour ${hour}:`, err);
+        return { day: dayOffset, hour, level: null };
+    }
+}
 
-// Function to build table
-function buildTable(department) {
-    const tableHeader = document.getElementById('tableHeader');
+// --- RENDERING AND CORE LOGIC ---
+async function renderScheduleTable(selectedDepartment) {
     const tableBody = document.getElementById('tableBody');
-    tableHeader.innerHTML = "<th>Time</th>"; // reset header
-    tableBody.innerHTML = ""; // reset body
+    const tableHeader = document.getElementById('tableHeader');
+    const todayStatus = document.getElementById('todayStatus');
+    const recommendedTextElement = document.getElementById('recommendedTime');
 
-    // Header
-    dates.forEach(date => {
-        const th = document.createElement('th');
-        th.textContent = date;
-        tableHeader.appendChild(th);
+    tableBody.innerHTML = '<tr><td colspan="4">Loading hourly schedule...</td></tr>';
+    todayStatus.textContent = 'Fetching...';
+    recommendedTextElement.textContent = 'Calculating...';
+
+    // 3 days × 24 hours
+    const predictionPromises = [];
+    for (let day = 0; day < 3; day++) {
+        for (let hour = 0; hour < 24; hour++) {
+            predictionPromises.push(predictSingleHour(day, hour, selectedDepartment));
+        }
+    }
+
+    const results = await Promise.all(predictionPromises);
+
+    // Structure data for table
+    const hourlyPredictions = {};
+    for (let hour = 0; hour < 24; hour++) hourlyPredictions[hour] = [null, null, null];
+    results.forEach(p => { if (p.level !== null) hourlyPredictions[p.hour][p.day] = p.level; });
+
+    // Update table header
+    const dayNames = getDayNames();
+    tableHeader.innerHTML = `<th>Time</th><th>${dayNames[0]}</th><th>${dayNames[1]}</th><th>${dayNames[2]}</th>`;
+
+    // Render table rows with circle + label
+    tableBody.innerHTML = '';
+    for (let hour = 0; hour < 24; hour++) {
+        const row = tableBody.insertRow();
+        row.insertCell().textContent = formatHour(hour);
+
+        hourlyPredictions[hour].forEach((level, dayIndex) => {
+            const cell = row.insertCell();
+            if (level === null) {
+                cell.textContent = 'N/A';
+                return;
+            }
+            let label = '', className = '';
+            switch(level){
+                case 0: label='Low'; className='low'; break;
+                case 1: label='Medium'; className='medium'; break;
+                case 2: label='High'; className='high'; break;
+            }
+            cell.innerHTML = `<span class="circle ${className}" style="display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:5px;"></span>${label}`;
+        });
+    }
+
+    // --- Today's Crowd Prediction (most common level today)
+    const todayLevels = Object.values(hourlyPredictions).map(levels => levels[0]);
+    const counts = {0:0,1:0,2:0};
+    todayLevels.forEach(l => { if(l!==null) counts[l]++; });
+    let majorityLevel = 0, maxCount = -1;
+    [2,1,0].forEach(lvl => { if(counts[lvl] >= maxCount){ maxCount=counts[lvl]; majorityLevel=lvl; }});
+    let statusText='', statusClass='';
+    switch(majorityLevel){
+        case 0: statusText='Mostly Low'; statusClass='low'; break;
+        case 1: statusText='Mostly Medium'; statusClass='medium'; break;
+        case 2: statusText='Mostly High'; statusClass='high'; break;
+    }
+    todayStatus.textContent = statusText;
+    todayStatus.className = 'status px-3 py-1 rounded-lg shadow-md ' + statusClass;
+
+    // --- Recommended Time (first Low hour today)
+    let recommendedTime = null;
+    for (let hour=0; hour<24; hour++){
+        const level = hourlyPredictions[hour][0]; // today
+        if(level===0 && hour>new Date().getHours()){
+            recommendedTime = formatHour(hour);
+            break;
+        }
+    }
+    recommendedTextElement.textContent = recommendedTime 
+        ? recommendedTime + ' (Low Crowd)' 
+        : 'No Low crowd times remaining today, check tomorrow';
+}
+
+// --- INITIALIZE DASHBOARD ---
+function initializeDashboard() {
+    const departmentFilter = document.getElementById('departmentFilter');
+
+    const runUpdates = () => renderScheduleTable(departmentFilter.value);
+
+    runUpdates();
+    departmentFilter.addEventListener('change', runUpdates);
+
+    document.getElementById('bookBtn').addEventListener('click', () => {
+        const time = document.getElementById('recommendedTime').textContent;
+        showModal('Appointment Booked', `Your appointment is booked for: ${time}`);
     });
 
-    // Body
-    times.forEach((time, rowIndex) => {
-        const tr = document.createElement('tr');
-        const timeCell = document.createElement('td');
-        timeCell.textContent = time;
-        tr.appendChild(timeCell);
-
-        dates.forEach(date => {
-            const td = document.createElement('td');
-            const booking = bookingsData[department][date][rowIndex];
-
-            const indicator = document.createElement('span');
-            indicator.classList.add('indicator');
-            if (booking.level === "High") indicator.classList.add('high');
-            if (booking.level === "Medium") indicator.classList.add('medium');
-            if (booking.level === "Low") indicator.classList.add('low');
-
-            td.appendChild(indicator);
-            td.appendChild(document.createTextNode(booking.level));
-
-            tr.appendChild(td);
-        });
-
-        tableBody.appendChild(tr);
+    document.getElementById('notification').addEventListener('click', () => {
+        const time = document.getElementById('recommendedTime').textContent;
+        showModal('Notification Set', `You will be notified 30 minutes before: ${time}`);
     });
 }
 
-// Initial table
-buildTable("cardiology");
-
-// Filter change
-document.getElementById('departmentFilter').addEventListener('change', (e) => {
-    const dept = e.target.value;
-    if (dept === "all") buildTable("cardiology"); // default or merge all later
-    else buildTable(dept);
-});
-
-
-
-
-
-
-
-
+document.addEventListener('DOMContentLoaded', initializeDashboard);

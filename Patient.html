@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Hospital Crowd Prediction</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Tajawal:wght@400;700&display=swap');
 
         * {
             margin: 0;
             padding: 0;
-            
         }
 
         body {
@@ -20,13 +19,11 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: center; /* Changed to center main content */
             align-items: center;
             text-align: center;
             overflow-x: hidden;
         }
-
-
 
         .right-panel {
             background-color: #0f1923;
@@ -43,20 +40,20 @@
             font-weight: bold;
         }
 
-            .status.low {
-                background-color: #3fc36c;
-                color: #fff;
-            }
+        .status.low {
+            background-color: #3fc36c;
+            color: #fff;
+        }
 
-            .status.medium {
-                background-color: #f4c542;
-                color: #FEFFE1;
-            }
+        .status.medium {
+            background-color: #f4c542;
+            color: #151A25; /* Changed to dark text for contrast */
+        }
 
-            .status.high {
-                background-color: #e44c4c;
-                color:#FEFFE1;
-            }
+        .status.high {
+            background-color: #e44c4c;
+            color: #FEFFE1;
+        }
 
         table {
             width: 100%;
@@ -76,17 +73,9 @@
             display: inline-block;
         }
 
-            .circle.low {
-                background-color: #3fc36c;
-            }
-
-            .circle.medium {
-                background-color: #f4c542;
-            }
-
-            .circle.high {
-                background-color: #e44c4c;
-            }
+        .circle.low { background-color: #3fc36c; }
+        .circle.medium { background-color: #f4c542; }
+        .circle.high { background-color: #e44c4c; }
 
         #bookBtn {
             margin-top: 20px;
@@ -99,34 +88,30 @@
             transition: transform 0.3s ease;
         }
 
-            #bookBtn:hover {
-                background-color: #f3eed5;
-                color:#151A25;
-                transform: scale(1.01) translateY(-10px);
-            
-            }
+        #bookBtn:hover {
+            background-color: #f3eed5;
+            color:#151A25;
+            transform: scale(1.01) translateY(-10px);
+        }
 
-            .notification:hover {
-                background-color: #f3eed5;
-                color: #151A25;
-                transform: scale(1.01) translateY(-10px);
-            }
-
-       
-
-
+        .notification:hover {
+            background-color: #f3eed5;
+            color: #151A25;
+            transform: scale(1.01) translateY(-10px);
+        }
 
         /* Main card */
         .container {
-            width: 100%;
+            width: 90%;
+            max-width: 1200px; /* Added max-width for better display */
             overflow: hidden;
             position: relative;
+            margin: 40px auto; /* Centering the container */
         }
 
         .content {
             display: flex;
             gap: 34px;
-          
             align-items: flex-start;
         }
 
@@ -134,37 +119,35 @@
         .left {
             flex: 0 0 420px;
             background-color: #0E646C;
-            border-radius: 0px 0px 10px 10px;
+            border-radius: 10px; /* Adjusted border-radius */
             padding: 28px;
             padding-top: 70px;
             padding-bottom: 70px;
-            margin: 4%;
-            margin-top: 0;
             color: #FEFFE1;
             box-shadow: inset 0 -6px 18px rgba(0,0,0,0.25);
             position: relative;
         }
 
-            .left h2 {
-                font-size: 40px;
-                font-weight: 700;
-                margin-bottom: 18px;
-                letter-spacing: 0.4px;
-                color: #FEFFE1
-            }
+        .left h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 0.4px;
+            color: #FEFFE1
+        }
 
-            .left p.lead {
-                font-size: 20px;
-                color: #FEFFE1; margin-bottom: 20px;
-                line-height: 1.5;
-            }
+        .left p.lead {
+            font-size: 20px;
+            color: #FEFFE1; margin-bottom: 20px;
+            line-height: 1.5;
+        }
 
-            .left p.small {
-                color: rgba(255,255,255,0.85);
-                opacity: 0.8;
-                font-size: 18px;
-                line-height: 1.4;
-            }
+        .left p.small {
+            color: rgba(255,255,255,0.85);
+            opacity: 0.8;
+            font-size: 18px;
+            line-height: 1.4;
+        }
 
 
         /* crowd Levels */
@@ -177,28 +160,23 @@
             align-items: center;
         }
 
-            .crowdLevels .item {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                font-weight: 600;
-           
-            }
+        .crowdLevels .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
 
-            .crowdLevels .bar {
-                width: 44px;
-               
-                height: 6px;
-                border-radius: 6px;
-              
-            }
+        .crowdLevels .bar {
+            width: 44px;
+            height: 6px;
+            border-radius: 6px;
+        }
         .bar.high {
-         
             background: linear-gradient(90deg,#b92b2b,#e04b4b)
         }
 
         .bar.medium {
-           
             background: linear-gradient(90deg,#cfa03a,#e6b648)
         }
 
@@ -207,48 +185,46 @@
         }
 
 
-
-
         /* Right panel */
         .right {
-            background-color:none;
+            background-color: none;
             flex: 1;
-            margin: 4%;
-            padding: 40px;
+            padding: 40px 0; /* Adjusted padding */
             text-align: left;
             color: #eee;
         }
 
-            .right h3 {
-                font-size: 28px;
-                margin-bottom: 20px;
-                color: #7ce3e1;
-            }
+        .right h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #7ce3e1;
+        }
 
-            .right p {
-                font-size: 18px;
-                margin-bottom: 20px;
-                line-height: 1.6;
-            }
+        .right p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
 
-            .right table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-top: 20px;
-            }
+        .right table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
 
-            .right th, .right td {
-                border: 2px solid #444;
-                padding: 12px;
-                text-align: center;
-            }
+        .right th, .right td {
+            border: 2px solid #444;
+            padding: 12px;
+            text-align: center;
+        }
 
-            .right th {
-              
-                color: #f3eed5;
-            }
+        .right th {
+            color: #f3eed5;
+            background-color: #1f2735; /* Darker header for contrast */
+        }
 
-            /*for today's crowd*/
+        /*for today's crowd*/
+        /* These are the same as .status classes, simplified for brevity here */
         .low {
             background-color: #3fc36c;
             color: white;
@@ -269,63 +245,42 @@
             padding: 5px 8px;
             border-radius: 6px;
         }
-
-
-
-
-
-
-        td .indicator {
-            display: inline-block;
-            width: 3px;
-            height: 6px;
-            border-radius: 50%;
-            margin-right: 6px;
-            vertical-align: middle;
-        }
-
-        .high {
-            background-color: red;
-        }
-
-        .medium {
-            background-color: orange;
-        }
-
-        .low {
-            background-color: green;
-        }
+        
         .dep{
-            margin:2%;
-            margin-left:60%;
-            font:bold
+            margin: 20px 0; /* Adjusted margin */
+            text-align: right;
+            font-weight: bold;
         }
-            .dep option {
-                font: bold;
-                background-color: #0E646C;
-                color: azure
-            }
-            .dep select {
-                border-radius: 4px;
-                background-color: #151A25;
-                padding: 1%;
-                font: bold;
-                color: #FEFFE1;
-                border: solid 2px #0E646C !important
-            }
-          
-
+        
+        .dep label {
+            margin-right: 10px;
+        }
+        
+        .dep option {
+            font-weight: bold;
+            background-color: #0E646C;
+            color: azure
+        }
+        
+        .dep select {
+            border-radius: 4px;
+            background-color: #151A25;
+            padding: 8px;
+            font-weight: bold;
+            color: #FEFFE1;
+            border: solid 2px #0E646C !important
+        }
+        
         .bookbtn {
             font-size: large;
             width: 40%;
-            font: bold
-                
+            font-weight: bold;
         }
         .notification {
             margin-left: 5%;
             font-size: large;
             width: 40%;
-            font: bolder;
+            font-weight: bolder;
             margin-top: 20px;
             background-color: #0E646C;
             color: white;
@@ -335,15 +290,13 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-      
-
-            
-            .btn{
-                align-items:center;
-                align-content:center;
-                    margin-left:20%;
-                
-            }
+        
+        .btn{
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -351,12 +304,10 @@
     <main class="container">
         <section class="content">
 
-            <!-- LEFT PANEL -->
             <aside class="left" aria-label="info column">
                 <h2 id="pageTitle">Welcome, Patient !</h2>
                 <p class="lead">Find the best time for your hospital visit.</p>
                 <p class="small">Our AI system predicts crowd levels and helps you choose the least busy hours for your appointments.</p>
-
 
                 <div class="crowdLevels" aria-hidden="true">
                     <div class="item"><div class="bar high"></div><span style="color:#fff">High</span></div>
@@ -366,45 +317,50 @@
             </aside>
 
 
-            <!--right -->
             <div class="right">
-                <h3>Today's Crowd Prediction: <span id="todayStatus"></span></h3>
+                <h3>Today's Crowd Prediction: <span id="todayStatus" class="status">Loading...</span></h3>
 
 
                 <h2>Patient Bookings (Next 3 Days)</h2>
 
-                <!-- Filter by department -->
                 <div class="dep">
                     <label for="departmentFilter">Filter by Department:</label>
                     <select id="departmentFilter">
-                        <option value="all">All</option>
-                        <option value="cardiology">Cardiology</option>
-                        <option value="pediatrics">Pediatrics</option>
-                        <option value="neurology">Neurology</option>
+                        <option value="Emergency" selected>Emergency</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Radiology">Radiology</option>
+                        <option value="Surgery">Surgery</option>
                     </select>
                 </div>
 
                 <table id="bookingTable">
                     <thead>
-                        <tr id="tableHeader">
-                            <th>Time</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody">
-                    </tbody>
+    <tr id="tableHeader">
+        <th>Time</th> 
+        <th>Today (Day)</th>
+        <th>(Day)</th>
+        <th>(Day)</th>
+    </tr>
+</thead>
+<tbody id="tableBody">
+    <tr><td colspan="4">Loading hourly schedule...</td></tr> 
+</tbody>
                 </table>
 
-                <h4 style="color:aliceblue ;margin:4%;margin-left:20%; ;font-size:larger" id="recommendedText">Recommended Visit Times:<span id="id="recommendedTime"> -- </span>(Low Crowd)</h4>
+                <h4 style="color:aliceblue; margin-top: 4%; font-size: larger;">
+                    Recommended Visit Times: <span id="recommendedTime">Select a time from the Low/Medium options</span>
+                </h4>
 
                 <div class="btn">
                     <button class='bookbtn' id="bookBtn">Book Appointment</button>
                     <button class='notification' id="notification">Notify Me</button>
                 </div>
             </div>
-            </section>
-        <script src="patient.js">
-        </script>
-
+        </section>
+    </main>
+    
+    <script src="patient.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hospital Dashboard</title>
+  <link rel="stylesheet" href="Hospital.css" />
+</head>
+<body>
+    
+    <main class="container">
+        <section class="content">
+
+            <!-- LEFT PANEL -->
+            <aside class="left" aria-label="info column">
+                <h2 id="pageTitle">Welcome, Hospital Team!</h2>
+                <p class="lead">Optimize your operations with smart insights.</p>
+                <p class="small">Our AI system predicts patient flow and crowd levels across departments, helping you manage staff schedules, balance workloads, and improve service quality.
+Make data-driven decisions and ensure smoother hospital performance every day.</p>
+
+
+                <div class="crowdLevels" aria-hidden="true">
+                    <div class="item"><div class="bar high"></div><span style="color:#fff">High</span></div>
+                    <div class="item"><div class="bar medium"></div><span style="color:#fff">Medium</span></div>
+                    <div class="item"><div class="bar low"></div><span style="color:#fff">Low</span></div>
+                </div>
+            </aside>
+
+<!--dashboard-->
+ <div class="right">
+            <div class="dashboard">
+    
+<h2>Dashboard</h2>
+    <p class="subtitle">Hospital overview</p>
+
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th>Department</th>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Recommendation</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+      </tbody>
+    </table>
+
+    <p class="footer" id="update-info"></p>
+  </div>
+</div>
+
+<div width="100%"><button class="btn">Back to Main Page</button></div>>
+
+
+  <script src="Hospital.js"></script>
+</body>
+</html>

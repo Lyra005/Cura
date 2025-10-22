@@ -74,9 +74,8 @@ The system helps patients choose the best time for non-urgent visits by:
 - Regression Model → predicts the number of patients  
 - Classification Model → predicts crowding level (High / Medium / Low)
 
-## Machine Learning Models
+## Machine Learning Models 
 
-## Machine Learning Models
 
 | Model Type    | Target        |Algorithm              | Performance (Metric)         | Output                         | Notes / Rationale |
 |---------------|---------------|----------------------|------------------------------|--------------------------------|------------------|

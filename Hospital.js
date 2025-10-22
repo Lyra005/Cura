@@ -91,12 +91,12 @@ async function renderHospitalTable() {
   // Determine which 12-hour cycles to show
   const showingEvening = currentHour >= 12;
   const firstPeriod = showingEvening
-    ? { label: `(12 PM–11 PM) - ${todayName}`, hours: [...Array(12).keys()].map(h => h + 12), dayName: todayName }
-    : { label: `(12 AM–11 AM) - ${todayName}`, hours: [...Array(12).keys()], dayName: todayName };
+    ? { label: "12 PM–11 PM", hours: [...Array(12).keys()].map(h => h + 12), dayName: todayName }
+    : { label: "12 AM–11 AM", hours: [...Array(12).keys()], dayName: todayName };
 
   const secondPeriod = showingEvening
-    ? { label: `(12 AM–11 AM) - ${tomorrowName}`, hours: [...Array(12).keys()], dayName: tomorrowName }
-    : { label: `(12 PM–11 PM) - ${todayName}`, hours: [...Array(12).keys()].map(h => h + 12), dayName: todayName };
+    ? { label: "12 AM–11 AM", hours: [...Array(12).keys()], dayName: tomorrowName }
+    : { label: "12 PM–11 PM", hours: [...Array(12).keys()].map(h => h + 12), dayName: todayName };
 
   const results = [];
 
@@ -121,8 +121,8 @@ async function renderHospitalTable() {
     results.push({
       department: dept,
       periods: [
-        { name: firstPeriod.label, level: firstMajority },
-        { name: secondPeriod.label, level: secondMajority },
+        { label: firstPeriod.label, dayName: firstPeriod.dayName, level: firstMajority },
+        { label: secondPeriod.label, dayName: secondPeriod.dayName, level: secondMajority },
       ],
       overall,
     });
@@ -136,26 +136,25 @@ async function renderHospitalTable() {
     // Department
     row.insertCell().textContent = r.department;
 
-    // Periods
+    // Periods 
     const timeCell = row.insertCell();
     timeCell.innerHTML = `
       <div>
-        <strong>${r.periods[0].name}</strong> – 
-        <strong>${r.periods[1].name}</strong> – 
+        <div><span>${r.periods[0].label}</span><br>${r.periods[0].dayName}</div>
+        <div><span>${r.periods[1].label}</span><br>${r.periods[1].dayName}</div>
       </div>
     `;
 
-    // Overall Status
+    // Status
     const statusCell = row.insertCell();
-    const { label, class: cls } = levelToLabel(r.overall);
     statusCell.innerHTML = `
-          <span class="${levelToLabel(r.periods[0].level).class}">
-          ${levelToLabel(r.periods[0].level).label}
-        </span> <br><br>
-          <span class="${levelToLabel(r.periods[1].level).class}">
-          ${levelToLabel(r.periods[1].level).label}
-        </span>
-        `;
+      <span class="${levelToLabel(r.periods[0].level).class}">
+        ${levelToLabel(r.periods[0].level).label}
+      </span> <br><br>
+      <span class="${levelToLabel(r.periods[1].level).class}">
+        ${levelToLabel(r.periods[1].level).label}
+      </span>
+    `;
 
     // Recommendation
     const recCell = row.insertCell();

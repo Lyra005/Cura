@@ -5,7 +5,7 @@ const API_URL = "http://127.0.0.1:5000/predict";
 const CONSTANTS = {
     Staff_Count: 10,
     Average_Wait_Time: 17,
-    Emergency_Load: "Yes", // "Yes"/"No"
+    Emergency_Load: "Yes"
 };
 
 // --- UTILITY FUNCTIONS ---
@@ -26,7 +26,7 @@ function formatHour(hour) {
 }
 
 
-// --- API CALL LOGIC ---
+// --- API CALL ---
 async function predictSingleHour(dayOffset, hour, department) {
     const requestData = {
         Day_of_Week: getDayNames()[dayOffset],
@@ -51,7 +51,7 @@ async function predictSingleHour(dayOffset, hour, department) {
     }
 }
 
-// --- RENDERING AND CORE LOGIC ---
+// --- RENDERING Table ---
 async function renderScheduleTable(selectedDepartment) {
     const tableBody = document.getElementById('tableBody');
     const tableHeader = document.getElementById('tableHeader');
@@ -81,7 +81,7 @@ async function renderScheduleTable(selectedDepartment) {
     const dayNames = getDayNames();
     tableHeader.innerHTML = `<th>Time</th><th>${dayNames[0]}</th><th>${dayNames[1]}</th><th>${dayNames[2]}</th>`;
 
-    // Render table rows with circle + label
+    // Render table rows 
     tableBody.innerHTML = '';
     for (let hour = 0; hour < 24; hour++) {
         const row = tableBody.insertRow();

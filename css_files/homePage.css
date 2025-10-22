@@ -15,18 +15,18 @@
           align-items: center;
           text-align: center;
           overflow-x: hidden;
-          padding: 20px;
+          padding: 3px;
       }
 
     header {
       width: 100%;
       display: flex;
       justify-content: flex-start;
-      padding: 20px 40px;
+      padding: 5px 20px;
     }
 
     header img {
-      width: 80px;
+      width: 150px;
     }
 
       h1 {
@@ -133,7 +133,7 @@
     footer {
       font-size: 14px;
       color: #aaa;
-      padding: 20px 0;
+      padding: 10px 0;
       text-align: center;
       width: 100%;
     }

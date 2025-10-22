@@ -148,7 +148,14 @@ async function renderHospitalTable() {
     // Overall Status
     const statusCell = row.insertCell();
     const { label, class: cls } = levelToLabel(r.overall);
-    statusCell.innerHTML = `<span class="${cls}">${label}</span>`;
+    statusCell.innerHTML = `
+          <span class="${levelToLabel(r.periods[0].level).class}">
+          ${levelToLabel(r.periods[0].level).label}
+        </span> <br><br>
+          <span class="${levelToLabel(r.periods[1].level).class}">
+          ${levelToLabel(r.periods[1].level).label}
+        </span>
+        `;
 
     // Recommendation
     const recCell = row.insertCell();

@@ -50,7 +50,7 @@
             padding: 28px;
             padding-top: 70px;
             padding-bottom: 70px;
-            margin: 4%;
+            margin-left: 4%;
             margin-top: 0;
             color: #FEFFE1;
             box-shadow: inset 0 -6px 18px rgba(0,0,0,0.25);
@@ -79,7 +79,7 @@
             }
 
 .dashboard {
-  width: 100%;
+  width: 99%;
   background: #fff;
 
   padding: 25px;
@@ -209,7 +209,7 @@ border-radius: 3px;
         .right {
             background-color:none;
             flex: 1;
-            margin: 4%;
+            margin-right: 90%;
             padding: 40px;
             text-align: left;
             color: #eee;

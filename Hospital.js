@@ -141,13 +141,7 @@ async function renderHospitalTable() {
     timeCell.innerHTML = `
       <div>
         <strong>${r.periods[0].name}</strong> – 
-        <span class="${levelToLabel(r.periods[0].level).class}">
-          ${levelToLabel(r.periods[0].level).label}
-        </span><br>
         <strong>${r.periods[1].name}</strong> – 
-        <span class="${levelToLabel(r.periods[1].level).class}">
-          ${levelToLabel(r.periods[1].level).label}
-        </span>
       </div>
     `;
 

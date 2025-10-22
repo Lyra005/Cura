@@ -80,8 +80,8 @@ The system helps patients choose the best time for non-urgent visits by:
 
 | Model Type    | Target        | Features Used       | Algorithm              | Performance (Metric)         | Output                         | Notes / Rationale |
 |---------------|---------------|-------------------|----------------------|------------------------------|--------------------------------|------------------|
-| Regression    | Num_Patients  | 6 features        | RandomForestRegressor | RMSE: 12.5, R²: 0.87         | Predicted number of patients  | Chosen for handling non-linear relationships and capturing feature interactions effectively |
-| Classification| Label         | 7 features        | RandomForestClassifier| Accuracy: 92%, F1-score: 0.91| Crowding level (High, Medium, Low) | Works well for multi-class classification and is robust to overfitting |
+| Regression    | Num_Patients  | 9 features        | LinearRegression | MSE: 8.396        | Predicted number of patients  | Chosen for handling linear relationships and capturing feature interactions effectively |
+| Classification| Label         | 9 features        | LogisticRegression| Precision: 0.83, recall: 0.82, F1-score: 0.82| Crowding level (High, Medium, Low) | Works well for multi-class classification and is robust to overfitting |
 
 
 Both models were trained, tested, and saved using **joblib** for production use.

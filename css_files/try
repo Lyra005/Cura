@@ -1,0 +1,297 @@
+ @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Tajawal:wght@400;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+body {
+    font-family: 'Tajawal', sans-serif;
+    color: white;
+    background-color: #151A25;
+    min-height: 100vh;
+    display: flex;
+    justify-content: flex-start; /* content starts at the top */
+    align-items: center;
+    text-align: center;
+    overflow-x: hidden;
+    padding-top: 0; /* remove extra padding */
+}
+
+/* Main card */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto; /* remove top margin */
+    padding-top: 40px; /* optional small space from top */
+}
+
+.content {
+    display: flex;
+    gap: 34px;
+    align-items: flex-start;
+}
+
+
+
+        .right-panel {
+            background-color: #0f1923;
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 350px;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .status.low {
+            background-color: #3fc36c;
+            color: #fff;
+        }
+
+        .status.medium {
+            background-color: #f4c542;
+            color: #151A25; 
+        }
+
+        .status.high {
+            background-color: #e44c4c;
+            color: #FEFFE1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        th, td {
+            padding: 8px;
+        }
+
+        .circle {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .circle.low { background-color: #3fc36c; }
+        .circle.medium { background-color: #f4c542; }
+        .circle.high { background-color: #e44c4c; }
+
+        #bookBtn {
+            margin-top: 20px;
+            background-color: #0E646C;
+            color: white;
+            border: none;
+            padding: 15px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        #bookBtn:hover {
+            background-color: #f3eed5;
+            color:#151A25;
+            transform: scale(1.01) translateY(-10px);
+        }
+
+        .notification:hover {
+            background-color: #f3eed5;
+            color: #151A25;
+            transform: scale(1.01) translateY(-10px);
+        }
+
+        
+        /* left panel */
+        .left {
+            flex: 0 0 420px;
+            background-color: #0E646C;
+            border-radius: 10px; 
+            padding: 28px;
+            padding-top: 79px;
+            padding-bottom: 70px;
+            color: #FEFFE1;
+            box-shadow: inset 0 -6px 18px rgba(0,0,0,0.25);
+            position: relative;
+            margin-top: 0;
+           
+        }
+
+        .left h2 {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 0.4px;
+            color: #FEFFE1
+        }
+
+        .left p.lead {
+            font-size: 20px;
+            color: #FEFFE1; margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .left p.small {
+            color: rgba(255,255,255,0.85);
+            opacity: 0.8;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+
+        /* crowd Levels */
+        .crowdLevels {
+            display: flex;
+            gap: 24px;
+            justify-content: flex-start;
+            margin-top: 60px;
+            margin-left: 20px;
+            align-items: center;
+        }
+
+        .crowdLevels .item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .crowdLevels .bar {
+            width: 44px;
+            height: 6px;
+            border-radius: 6px;
+        }
+        .bar.high {
+            background: linear-gradient(90deg,#b92b2b,#e04b4b)
+        }
+
+        .bar.medium {
+            background: linear-gradient(90deg,#cfa03a,#e6b648)
+        }
+
+        .bar.low {
+            background: linear-gradient(90deg,#2db36f,#2fbf86)
+        }
+
+
+        /* Right panel */
+        .right {
+            background-color: none;
+            flex: 1;
+            padding: 40px 0; /* Adjusted padding */
+            text-align: left;
+            color: #eee;
+        }
+
+        .right h3 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #7ce3e1;
+        }
+
+        .right p {
+            font-size: 18px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .right table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .right th, .right td {
+            border: 2px solid #444;
+            padding: 12px;
+            text-align: center;
+        }
+
+        .right th {
+            color: #f3eed5;
+            background-color: #1f2735; /* Darker header for contrast */
+        }
+
+        /*for today's crowd*/
+        /* These are the same as .status classes, simplified for brevity here */
+        .low {
+            background-color: #3fc36c;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 6px;
+        }
+
+        .medium {
+            background-color: #f4c542;
+            color: black;
+            padding: 5px 8px;
+            border-radius: 6px;
+        }
+
+        .high {
+            background-color: #e44c4c;
+            color: white;
+            padding: 5px 8px;
+            border-radius: 6px;
+        }
+        
+        .dep{
+            margin: 20px 0; /* Adjusted margin */
+            text-align: right;
+            font-weight: bold;
+        }
+        
+        .dep label {
+            margin-right: 10px;
+        }
+        
+        .dep option {
+            font-weight: bold;
+            background-color: #0E646C;
+            color: azure
+        }
+        
+        .dep select {
+            border-radius: 4px;
+            background-color: #151A25;
+            padding: 8px;
+            font-weight: bold;
+            color: #FEFFE1;
+            border: solid 2px #0E646C !important
+        }
+        
+        .bookbtn {
+            font-size: large;
+            width: 40%;
+            font-weight: bold;
+        }
+        .notification {
+            margin-left: 5%;
+            font-size: large;
+            width: 40%;
+            font-weight: bolder;
+            margin-top: 20px;
+            background-color: #0E646C;
+            color: white;
+            border: none;
+            padding: 15px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .btn{
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+            margin-top: 20px;
+        }

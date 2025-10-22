@@ -18,6 +18,7 @@
           padding: 3px;
       }
 
+      /*Header*/
     header {
       width: 100%;
       display: flex;
@@ -29,6 +30,7 @@
       width: 150px;
     }
 
+    /*CURA title*/
       h1 {
           margin-top: 0px;
           font-family: 'Syncopate';
@@ -59,6 +61,8 @@
       text-align: left;
     }
 
+     /*left section*/
+
     .left {
       flex: 1 1 300px;
       padding: 20px;
@@ -79,6 +83,7 @@
           font-weight: 700;
       }
 
+      /*right section*/
     .right {
       flex: 1 1 300px;
       margin-top:4%;
@@ -92,6 +97,8 @@
       color: #d5d5d5;
     }
 
+
+    /*choose from 2 option*/
     .choose {
       margin: 40px 0 20px;
       font-size: 18px;
@@ -129,6 +136,7 @@
     .btn:hover {
       transform: translateY(-9px);
     }
+    /*Footer*/
 
     footer {
       font-size: 14px;
@@ -139,7 +147,7 @@
     }
 
    
-
+/* some responsive*/
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }

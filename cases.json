@@ -1,0 +1,7 @@
+[
+  {
+    "timestamp": "2025-10-24 11:04",
+    "description": "المريض يعاني من صداع شديد وغثيان منذ يومين.",
+    "model_response": "⚠️ حدث خطأ أثناء الاتصال بنموذج الذكاء الاصطناعي: 'InferenceClient' object has no attribute 'post'"
+  }
+]

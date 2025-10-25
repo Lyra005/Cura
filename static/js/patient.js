@@ -142,14 +142,9 @@ function initializeDashboard() {
     departmentFilter.addEventListener('change', runUpdates);
 
     document.getElementById('bookBtn').addEventListener('click', () => {
-        const time = document.getElementById('recommendedTime').textContent;
-        showModal('Appointment Booked', `Your appointment is booked for: ${time}`);
+        window.location.href = '/chatbot';
     });
 
-    document.getElementById('notification').addEventListener('click', () => {
-        const time = document.getElementById('recommendedTime').textContent;
-        showModal('Notification Set', `You will be notified 30 minutes before: ${time}`);
-    });
 }
 
 document.addEventListener('DOMContentLoaded', initializeDashboard);

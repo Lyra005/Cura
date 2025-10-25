@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>Hospital Crowd Prediction</title>
-    <link rel="stylesheet" href="css_files/Patient.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Patient.css') }}">
 
    
 </head>
@@ -68,7 +68,7 @@
         </section>
     </main>
     
-    <script src="patient.js"></script>
+    <script src="{{ url_for('static', filename='js/patient.js') }}"></script>
 
 </body>
 </html>

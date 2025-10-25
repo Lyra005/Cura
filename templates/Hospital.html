@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Hospital Dashboard</title>
-  <link rel="stylesheet" href="css_files/Hospital.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/Hospital.css') }}">
 </head>
 <body>
     
@@ -54,7 +54,7 @@ Make data-driven decisions and ensure smoother hospital performance every day.</
 <div width="100%"><button class="btn">Back to Main Page</button></div>>
 
 
-  <script src="Hospital.js"></script>
+  <script src="{{ url_for('static', filename='js/Hospital.js') }}"></script>
 </body>
 </html>
 

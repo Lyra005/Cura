@@ -4,13 +4,16 @@
   <meta charset="UTF-8" />
   <title>CURA - Smart Healthcare AI</title>
 
-  <link rel="stylesheet" href="css_files/homePage.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/homePage.css') }}">
+ 
+
 </head>
 
 <body>
   <header>
   
-    <img src="curalogo.png" alt="CURA logo">
+    <img src="{{ url_for('static', filename='images/curalogo.png') }}" alt="CURA logo">
+
   </header>
   <div id="container">
     <h1>CURA</h1>
@@ -45,12 +48,12 @@
   <script>
     document.getElementById("patientBtn").addEventListener("click", () => {
       alert("Redirecting to Patient section...");
-      window.location.href = "Patient.html";
+      window.location.href = "/patient";
     });
 
     document.getElementById("hospitalBtn").addEventListener("click", () => {
       alert("Redirecting to Hospital section...");
-       window.location.href = "Hospital.html";
+       window.location.href = "/hospital";
     });
 
   </script>
